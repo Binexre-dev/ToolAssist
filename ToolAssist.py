@@ -4,25 +4,33 @@ import magic
 
 def suggest_tools(filetype: str):
 	filetype = filetype.lower()
-	suggestions = []
-	# Prioritize Python detection
-	if 'pe32' in filetype or 'exe' in filetype:
-		return ['PEStudio', 'CFF Explorer', 'Detect It Easy', 'FLOSS', 'Ghidra', 'IDA Pro']
-	if 'dotnet' in filetype or '.net' in filetype:
-		return ['dnSpy', 'ILSpy', 'FLOSS']
-	if 'elf' in filetype:
-		return ['readelf', 'objdump', 'Ghidra', 'radare2']
-	if 'pdf' in filetype:
-		return ['pdfid', 'peepdf', 'pdf-parser']
-	if 'java' in filetype or 'jar' in filetype:
-		return ['JD-GUI', 'CFR', 'JADX']
-	if 'ms office' in filetype or 'doc' in filetype or 'xls' in filetype:
-		return ['oletools', 'oleid', 'msoffcrypto-tool']
+	static = []
+	dynamic = []
 	if 'python' in filetype or 'py' in filetype:
-		return ['uncompyle6', 'pyinstxtractor']
-	if not suggestions:
-		suggestions.append('No specific tools found. Try a generic hex editor or strings.')
-	return suggestions
+		static = ['uncompyle6', 'pyinstxtractor', 'strings', 'hex editor']
+		dynamic = ['Cuckoo Sandbox', 'Any.run', 'Sandboxie']
+	elif 'pe32' in filetype or 'exe' in filetype:
+		static = ['PEStudio', 'CFF Explorer', 'Detect It Easy', 'FLOSS', 'Ghidra', 'IDA Pro', 'strings', 'Resource Hacker']
+		dynamic = ['Cuckoo Sandbox', 'Any.run', 'Procmon', 'Process Explorer', 'Sandboxie']
+	elif 'dotnet' in filetype or '.net' in filetype:
+		static = ['dnSpy', 'ILSpy', 'FLOSS', 'Detect It Easy', 'strings']
+		dynamic = ['Cuckoo Sandbox', 'Any.run', 'Procmon', 'Process Explorer']
+	elif 'elf' in filetype:
+		static = ['readelf', 'objdump', 'Ghidra', 'radare2', 'strings', 'hex editor']
+		dynamic = ['Cuckoo Sandbox', 'strace', 'ltrace']
+	elif 'pdf' in filetype:
+		static = ['pdfid', 'peepdf', 'pdf-parser', 'strings', 'hex editor']
+		dynamic = ['Cuckoo Sandbox', 'Any.run']
+	elif 'java' in filetype or 'jar' in filetype:
+		static = ['JD-GUI', 'CFR', 'JADX', 'strings', 'hex editor']
+		dynamic = ['Cuckoo Sandbox', 'Any.run']
+	elif 'ms office' in filetype or 'doc' in filetype or 'xls' in filetype:
+		static = ['oletools', 'oleid', 'msoffcrypto-tool', 'strings', 'hex editor']
+		dynamic = ['Cuckoo Sandbox', 'Any.run']
+	else:
+		static = ['No specific tools found. Try a generic hex editor or strings.']
+		dynamic = []
+	return {'static': static, 'dynamic': dynamic}
 
 def main():
 	if len(sys.argv) != 2:
@@ -37,9 +45,14 @@ def main():
 		sys.exit(1)
 	print(f'File type detected: {filetype}')
 	tools = suggest_tools(filetype)
-	print('Suggested analysis tools:')
-	for tool in tools:
+	print('\nSuggested analysis tools:')
+	print('Static Analysis Tools:')
+	for tool in tools['static']:
 		print(f'- {tool}')
+	if tools['dynamic']:
+		print('\nDynamic Analysis Tools:')
+		for tool in tools['dynamic']:
+			print(f'- {tool}')
 
 if __name__ == '__main__':
 	main()
