@@ -7,26 +7,27 @@ def suggest_tools(filetype: str):
 	static = []
 	dynamic = []
 	if 'python' in filetype or 'py' in filetype:
-		static = ['uncompyle6', 'pyinstxtractor', 'strings', 'hex editor']
-		dynamic = ['Cuckoo Sandbox', 'Any.run', 'Sandboxie']
+		static = ['uncompyle6', 'pyinstxtractor', 'FLOSS', 'hex editor']
+		dynamic = ['Python Debugger', 'Fakenet', 'Procmon']
 	elif 'pe32' in filetype or 'exe' in filetype:
-		static = ['PEStudio', 'CFF Explorer', 'Detect It Easy', 'FLOSS', 'Ghidra', 'IDA Pro', 'strings', 'Resource Hacker']
-		dynamic = ['Cuckoo Sandbox', 'Any.run', 'Procmon', 'Process Explorer', 'Sandboxie']
+		static = ['PEStudio', 'CFF Explorer', 'Detect It Easy', 'FLOSS', 'Ghidra',
+				  'IDA Pro', 'strings', 'System Informer', 'CAPA']
+		dynamic = ['Regshot', 'Autoruns', 'Fakenet', 'Procmon']
 	elif 'dotnet' in filetype or '.net' in filetype:
 		static = ['dnSpy', 'ILSpy', 'FLOSS', 'Detect It Easy', 'strings']
 		dynamic = ['Cuckoo Sandbox', 'Any.run', 'Procmon', 'Process Explorer']
 	elif 'elf' in filetype:
-		static = ['readelf', 'objdump', 'Ghidra', 'radare2', 'strings', 'hex editor']
-		dynamic = ['Cuckoo Sandbox', 'strace', 'ltrace']
+		static = ['readelf', 'objdump','FLOSS', 'Ghidra', 'strings', 'hex editor']
+		dynamic = ['GDB', 'strace', 'Fakenet', 'ltrace']
 	elif 'pdf' in filetype:
 		static = ['pdfid', 'peepdf', 'pdf-parser', 'strings', 'hex editor']
-		dynamic = ['Cuckoo Sandbox', 'Any.run']
+		dynamic = ['Regshot', 'Autoruns', 'Fakenet', 'Procmon']
 	elif 'java' in filetype or 'jar' in filetype:
 		static = ['JD-GUI', 'CFR', 'JADX', 'strings', 'hex editor']
-		dynamic = ['Cuckoo Sandbox', 'Any.run']
+		dynamic = ['Regshot', 'Autoruns', 'Fakenet', 'Procmon']
 	elif 'ms office' in filetype or 'doc' in filetype or 'xls' in filetype:
 		static = ['oletools', 'oleid', 'msoffcrypto-tool', 'strings', 'hex editor']
-		dynamic = ['Cuckoo Sandbox', 'Any.run']
+		dynamic = ['Regshot', 'Autoruns', 'Fakenet', 'Procmon']
 	else:
 		static = ['No specific tools found. Try a generic hex editor or strings.']
 		dynamic = []
