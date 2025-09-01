@@ -15,7 +15,7 @@ def suggest_tools(filetype: str):
 		dynamic = ['Regshot', 'Autoruns', 'Fakenet', 'Procmon']
 	elif 'dotnet' in filetype or '.net' in filetype:
 		static = ['dnSpy', 'ILSpy', 'FLOSS', 'Detect It Easy', 'strings']
-		dynamic = ['Cuckoo Sandbox', 'Any.run', 'Procmon', 'Process Explorer']
+		dynamic = ['Regshot', 'Autoruns', 'Fakenet', 'Procmon']
 	elif 'elf' in filetype:
 		static = ['readelf', 'objdump','FLOSS', 'Ghidra', 'strings', 'hex editor']
 		dynamic = ['GDB', 'strace', 'Fakenet', 'ltrace']
